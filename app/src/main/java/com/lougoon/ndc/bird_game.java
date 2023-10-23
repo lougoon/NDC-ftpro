@@ -28,7 +28,7 @@ public class bird_game extends AppCompatActivity {
     private FirebaseAuth auth;
     private Boolean game_already_started,compteur,distance;
     private TextView score_text,BestScore;
-    private static final int DELAY_MILLIS = 15;
+    private static final int DELAY_MILLIS = 10;
     private int gravity = 1;
     private int score,screenWidth,screenHeight,velocity,flappyY,milieu_screen,milieu_screen_h;
     private ImageView flappy,cara_top_1,cara_bottom_1,cara_top_2,cara_bottom_2;
@@ -68,7 +68,7 @@ public class bird_game extends AppCompatActivity {
                 game_already_started = true;
                 start_game();
             }
-            velocity= -18;
+            velocity= -19;
 
         });
     }
@@ -171,7 +171,7 @@ public class bird_game extends AppCompatActivity {
     }
     private int calculateVelocity(int score) {
         int initialvelocity = 4;
-        int add = 2;
+        int add = 1;
         int addspeed = (score / 5 ) * add;
         if (addspeed >= 6) {
             return initialvelocity + 6;
