@@ -222,6 +222,7 @@ public class bird_game extends AppCompatActivity {
         }
     }
     private void save_bScore_firebase() {
+        auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
