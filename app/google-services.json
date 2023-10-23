@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1061683849369",
+    "project_id": "ndcapp-9be6f",
+    "storage_bucket": "ndcapp-9be6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061683849369:android:4bad96fd42c5441026b008",
+        "android_client_info": {
+          "package_name": "com.lougoon.ndc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhV3WrgnW2JEaprb4qIp6C624emb08ztA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

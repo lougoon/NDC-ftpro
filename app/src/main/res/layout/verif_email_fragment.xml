@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Verif_email_fragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/dark_blue">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_verif_info"
+        android:layout_margin="20dp"
+        android:fontFamily="@font/opensensligth"
+        android:text="@string/verif_mail"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email_verif_info_2"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/opensensligth"
+        android:text="@string/verif_mail_2"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/verif_btn_confirm"
+        android:layout_marginHorizontal="50dp"
+        android:text="@string/j_ai_verif_mon_adresse_mail"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black_blue"/>
+
+</LinearLayout>

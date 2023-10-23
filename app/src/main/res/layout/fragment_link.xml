@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000000"
+    tools:context=".link_fragment">
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/titre_reseaux"
+       android:elevation="2dp"
+       android:alpha="0.7"
+       android:layout_margin="10dp"
+       android:textSize="40sp"
+       android:textAlignment="center"
+       android:text="@string/reseaux"
+       android:textColor="@color/white"
+       android:fontFamily="@font/zonaproultra"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
+        android:elevation="2dp"
+        android:id="@+id/logo"
+        android:src="@drawable/ndclogotransparent"
+        android:alpha="0.9"
+        app:layout_constraintTop_toBottomOf="@id/titre_reseaux"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/logo"
+        />
+
+    <LinearLayout
+        android:id="@+id/facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/btn_reseaux"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:paddingVertical="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/facebook"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:contentDescription="@string/logo_facebook"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/zonaproultra"
+            android:text="@string/facebook"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/instagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:layout_margin="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@drawable/btn_reseaux"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/facebook">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/instagram"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:contentDescription="@string/logo_insta"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="@font/zonaproultra"
+            android:text="@string/instagram"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/soire_gif"
+        android:adjustViewBounds="false"
+        android:src="@drawable/soire_gif"
+        android:scaleType="centerCrop"
+        android:alpha="0.5"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_marginTop="180dp"
+        android:layout_marginStart="-15dp"
+        android:elevation="1dp"
+        android:alpha="0.35"
+        android:fontFamily="@font/zonaproultra"
+        android:rotation="-90"
+        android:text="@string/astx_tom"
+        app:layout_constraintLeft_toLeftOf="@id/soire_gif"
+        app:layout_constraintTop_toTopOf="@id/soire_gif"/>
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

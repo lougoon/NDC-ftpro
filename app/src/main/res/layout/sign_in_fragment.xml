@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".sign_in_fragment"
+    android:background="@color/dark_blue"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="24dp"
+            android:background="@color/login_pink">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/inscrivez_vous"
+                android:fontFamily="@font/opensensligth"
+                android:textSize="36sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/back_login"
+                android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="@string/email"
+                android:drawableStart="@drawable/mail_pic"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:autofillHints="emailAddress"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/pseudo"
+                android:inputType="text"
+                android:background="@drawable/back_login"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="@string/Pseudo"
+                android:drawableStart="@drawable/personm_log_acti"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:importantForAutofill="no" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_password"
+                android:inputType="textPassword"
+                android:background="@drawable/back_login"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:hint="@string/password"
+                android:drawableStart="@drawable/lock_25"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:autofillHints="password"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                android:fontFamily="@font/opensensligth"
+                android:id="@+id/signup_button"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/black_blue"
+                app:cornerRadius = "20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginRedirectText"
+                android:text="@string/deja_un_compte_connectez_vous"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</LinearLayout>
