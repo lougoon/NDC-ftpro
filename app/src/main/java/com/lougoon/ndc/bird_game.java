@@ -5,14 +5,25 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +37,13 @@ public class bird_game extends AppCompatActivity {
 
     private Handler handler = new Handler();
     private FirebaseAuth auth;
-    private Boolean game_already_started,compteur,distance;
+    private Boolean game_already_started,compteur,distance,pub_load;
     private TextView score_text,BestScore;
+    private InterstitialAd mInterstitialAd;
     private static final int DELAY_MILLIS = 10;
+    private static final String TAG = "pub";
     private int gravity = 1;
+    private ProgressBar progressBar;
     private int score,screenWidth,screenHeight,velocity,flappyY,milieu_screen,milieu_screen_h;
     private ImageView flappy,cara_top_1,cara_bottom_1,cara_top_2,cara_bottom_2;
 
@@ -38,11 +52,7 @@ public class bird_game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bird_game);
         BestScore = findViewById(R.id.best_score);
-        if (Package_ndc.get_in_preference(this, "bestscore") != null) {
-            String bestscore_string = Package_ndc.get_in_preference(this, "bestscore");
-            BestScore.setText("Best score : " + bestscore_string);
-        }
-
+        progressBar = findViewById(R.id.progressBar);
         ConstraintLayout backgroundView = findViewById(R.id.view_clic);
         auth = FirebaseAuth.getInstance();
         flappy = findViewById(R.id.flappy);
@@ -51,6 +61,79 @@ public class bird_game extends AppCompatActivity {
         cara_top_2 = findViewById(R.id.cara_top_2);
         cara_bottom_2 = findViewById(R.id.cara_bottom_2);
         score_text = findViewById(R.id.score_text);
+        game_already_started = false;
+        // preparation des pubs
+        pub_load = false;
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {}
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/1033173712", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdClicked() {
+                                // Called when a click is recorded for an ad.
+                                Log.d(TAG, "Ad was clicked.");
+                            }
+
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when ad is dismissed.
+                                // Set the ad reference to null so you don't show the ad a second time.
+                                Log.d(TAG, "Ad dismissed fullscreen content.");
+                                mInterstitialAd = null;
+                                startActivity(new Intent(bird_game.this,EndgameBird.class));
+                                finish();
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when ad fails to show.
+                                Log.e(TAG, "Ad failed to show fullscreen content.");
+                                mInterstitialAd = null;
+                            }
+
+                            @Override
+                            public void onAdImpression() {
+                                // Called when an impression is recorded for an ad.
+                                Log.d(TAG, "Ad recorded an impression.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when ad is shown.
+                                Log.d(TAG, "Ad showed fullscreen content.");
+                            }
+                        });
+                        Log.i(TAG, "onAdLoaded");
+                        progressBar.setVisibility(View.GONE);
+                        BestScore.setVisibility(View.VISIBLE);
+                        flappy.setVisibility(View.VISIBLE);
+                        score_text.setVisibility(View.VISIBLE);
+                        pub_load = true;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.d(TAG, loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
+        // fin pub
+
+        if (Package_ndc.get_in_preference(this, "bestscore") != null) {
+            String bestscore_string = Package_ndc.get_in_preference(this, "bestscore");
+            BestScore.setText("Best score : " + bestscore_string);
+        }
 
         // Get screen dimensions
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -60,15 +143,14 @@ public class bird_game extends AppCompatActivity {
         screenHeight = displayMetrics.heightPixels;
         milieu_screen_h = screenHeight/2;
 
-        game_already_started = false;
-
         backgroundView.setOnClickListener(view -> {
-
-            if (!game_already_started) {
-                game_already_started = true;
-                start_game();
+            if (pub_load) {
+                if (!game_already_started) {
+                    game_already_started = true;
+                    start_game();
+                }
+                velocity= -19;
             }
-            velocity= -19;
 
         });
     }
@@ -183,8 +265,16 @@ public class bird_game extends AppCompatActivity {
         save_best_score();
         Package_ndc.save_in_preference(this,Integer.toString(score),"last_score");
         stopBackStuffLoop();
-        startActivity(new Intent(this,EndgameBird.class));
-        finish();
+        // lancement pub
+        Random random = new Random(System.currentTimeMillis());
+        int nombreAleatoire = random.nextInt(2) + 1;
+        if (mInterstitialAd != null && nombreAleatoire ==1) {
+            mInterstitialAd.show(bird_game.this);
+        } else {
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            startActivity(new Intent(this,EndgameBird.class));
+            finish();
+        }
 
     }
     private void initialisation_cara(ImageView cara_top,ImageView cara_bottom){
